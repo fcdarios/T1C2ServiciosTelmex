@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.Controller"
+            prefHeight="400.0" prefWidth="600.0">
+    <padding><Insets topRightBottomLeft="10"></Insets></padding>
+    <children>
+        <GridPane id="" alignment="center" hgap="10" vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+    <TextField  text="" fx:id="textField1" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3" prefWidth="80" prefHeight="40"/>
+
+    <Button text="Consultar" fx:id="BtnConsultar" GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="100" prefHeight="40">
+        <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" glyphSize="20" fill="black"/>
+        </graphic>
+    </Button>
+
+    <Button text="Cancelar" fx:id="BtnCancelar" GridPane.rowIndex="1" GridPane.columnIndex="3" prefWidth="100" prefHeight="40">
+        <graphic>
+            <FontAwesomeIconView glyphName="CLOSE" glyphSize="20" fill="black"/>
+        </graphic>
+    </Button>
+
+    <Button text="Ayuda" fx:id="BtnAyuda" GridPane.rowIndex="2" GridPane.columnIndex="3" prefWidth="100" prefHeight="40">
+        <graphic>
+            <FontAwesomeIconView glyphName="QUESTION" glyphSize="20" fill="black"/>
+        </graphic>
+    </Button>
+
+    <Button text="1" fx:id="Button1" GridPane.rowIndex="1" GridPane.columnIndex="0" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="2" fx:id="Button2" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="3" fx:id="Button3" GridPane.rowIndex="1" GridPane.columnIndex="2" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="4" fx:id="Button4" GridPane.rowIndex="2" GridPane.columnIndex="0" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="5" fx:id="Button5" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="6" fx:id="Button6" GridPane.rowIndex="2" GridPane.columnIndex="2" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="7" fx:id="Button7" GridPane.rowIndex="3" GridPane.columnIndex="0" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="8" fx:id="Button8" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="9" fx:id="Button9" GridPane.rowIndex="3" GridPane.columnIndex="2" prefWidth="50" prefHeight="40" styleClass="btn, btn-default"/>
+    <Button text="0" fx:id="Button10" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2" prefWidth="165" prefHeight="40"  styleClass="btn, btn-default"/>
+    <Button text="" fx:id="BtnBorrar" GridPane.rowIndex="4" GridPane.columnIndex="2" prefWidth="50" prefHeight="40"  styleClass="btn, btn-default">
+        <graphic>
+            <FontAwesomeIconView glyphName="ARROW_CIRCLE_LEFT" glyphSize="20" fill="black"/>
+        </graphic>
+    </Button>
+        </GridPane>
+    </children>
+</AnchorPane>

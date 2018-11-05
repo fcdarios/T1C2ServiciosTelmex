@@ -8,11 +8,16 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Stage primaryStage;
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+    public void start(Stage _primaryStage) throws Exception{
+        primaryStage = _primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("sampleConsulta.fxml"));
+        Scene scene = new Scene(root, 380, 300);
+        scene.getStylesheets().add("bootstrapfx.css");
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("TELMEX");
         primaryStage.show();
     }
 
