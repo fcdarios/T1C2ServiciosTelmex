@@ -6,15 +6,15 @@
 <?import javafx.geometry.Insets?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import com.jfoenix.controls.JFXTextField?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.Controller"
             prefHeight="400.0" prefWidth="600.0">
-    <padding><Insets topRightBottomLeft="10"></Insets></padding>
-    <children>
-        <GridPane id="" alignment="center" hgap="10" vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
-    <TextField  text="" fx:id="textField1" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3" prefWidth="80" prefHeight="40"/>
+    <GridPane id="" alignment="center" hgap="10" vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+    <JFXTextField  fx:id="textField1" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3" prefWidth="80" prefHeight="40"/>
 
     <Button text="Consultar" fx:id="BtnConsultar" GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="100" prefHeight="40">
         <graphic>
@@ -50,5 +50,5 @@
         </graphic>
     </Button>
         </GridPane>
-    </children>
+
 </AnchorPane>
