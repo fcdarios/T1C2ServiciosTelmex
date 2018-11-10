@@ -1,5 +1,6 @@
 package sample;
 
+import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,12 +14,14 @@ public class Main extends Application {
     public void start(Stage _primaryStage) throws Exception{
         primaryStage = _primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("sampleConsulta.fxml"));
+        //JFXDecorator decorator = new JFXDecorator(primaryStage,root);
+        //decorator.setStyle("-fx-background-color:#ffffff");
         Scene scene = new Scene(root, 380, 300);
-        scene.getStylesheets().add("bootstrapfx.css");
-
+        scene.getStylesheets().add("rsc/DarkTheme2.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("TELMEX");
         primaryStage.show();
+        //
     }
 
 
