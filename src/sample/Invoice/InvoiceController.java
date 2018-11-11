@@ -38,7 +38,7 @@ public class InvoiceController implements Initializable
     {
         lblFirstN.setText(inv.getId_customer().getFirst_name());
         lblLastN.setText(inv.getId_customer().getLast_name());
-        lblCity.setText(inv.getId_customer().getId_city().getName());
+        //lblCity.setText(inv.getId_customer().getId_city().getName_city());
         lblCP.setText(inv.getId_customer().getCp()+"");
         btnPay.setOnAction(eventBtnPay);
 

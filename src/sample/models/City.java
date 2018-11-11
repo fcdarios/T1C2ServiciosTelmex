@@ -3,13 +3,13 @@ package sample.models;
 public class City
 {
     int id_city;
-    String name;
+    String name_city;
 
     public City() { }
 
-    public City(int id_city, String name) {
+    public City(int id_city, String name_city) {
         this.id_city = id_city;
-        this.name = name;
+        this.name_city = name_city;
     }
 
     public int getId_city() {
@@ -20,19 +20,11 @@ public class City
         this.id_city = id_city;
     }
 
-    public String getName() {
-        return name;
+    public String getName_city() {
+        return name_city;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "City{" +
-                "id_city=" + id_city +
-                ", name='" + name + '\'' +
-                '}';
+    public void setName_city(String name_city) {
+        this.name_city = name_city;
     }
 }

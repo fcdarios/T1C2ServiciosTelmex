@@ -1,20 +1,21 @@
 package sample.models;
 
-public class Customer {
+public class CustomerView {
     private int id_customer, cp;
-    private int id_city;
-    private String first_name, last_name, address;
+    private String name_city;
+    private String first_name, last_name, address, phone_number;
 
-    public Customer(int id_customer, String first_name, String last_name, String address, int cp, int id_city) {
+    public CustomerView(int id_customer, String first_name, String last_name, String address,String phone_number , int cp, String name_city) {
         this.id_customer = id_customer;
         this.cp = cp;
-        this.id_city = id_city;
+        this.name_city = name_city;
         this.first_name = first_name;
         this.last_name = last_name;
         this.address = address;
+        this.phone_number = phone_number;
     }
 
-    public Customer() {
+    public CustomerView() {
     }
 
     public int getId_customer() {
@@ -33,12 +34,20 @@ public class Customer {
         this.cp = cp;
     }
 
-    public int getId_city() {
-        return id_city;
+    public String getName_city() {
+        return name_city;
     }
 
-    public void setId_city(int id_city) {
-        this.id_city = id_city;
+    public void setName_city(String name_city) {
+        this.name_city = name_city;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getFirst_name() {
@@ -65,8 +74,4 @@ public class Customer {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Id "+id_customer;
-    }
 }

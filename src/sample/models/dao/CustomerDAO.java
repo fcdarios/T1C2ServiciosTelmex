@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.models.City;
 import sample.models.Customer;
+import sample.models.CustomerView;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,25 +21,61 @@ public class CustomerDAO {
 
     public static void addTransaction(Customer customer) { data.add(customer); }
 
-    public ObservableList<Customer> findAll() {
+    /*public ObservableList<Customer> findAll() {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
+
         try {
             String query = "SELECT * FROM customer";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             Customer p = null;
-            while(rs.next()) {
-                City city = new City();
-                city.setId_city(rs.getInt("id_city"));
-                p = new sample.models.Customer(
+            if (rs.first()) {
+                //CityDAO cityDAO = new CityDAO(MySQL.getConnection());
+                CityDAO cityDAO = new CityDAO(MySQL.getConnection());
+                while (rs.next()) {
+                    City city = new City();
+                    city.setId_city(rs.getInt("id_city"));
+
+                    p = new sample.models.Customer(
+                            rs.getInt("id_customer"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getString("address"),
+                            rs.getInt("cp"),
+                            //cityDAO.fetch(rs.getInt("id_city"))
+                            //city
+                            rs.getInt("id_city")
+                    );
+                    customers.add(p);
+                }
+                rs.close();
+                st.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al recuperar información...");
+        }
+        return customers;
+    }*/
+
+    public ObservableList<CustomerView> findAllV() {
+        ObservableList<CustomerView> customerViews = FXCollections.observableArrayList();
+        try {
+            String query = "SELECT * FROM viewcustomer";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            CustomerView p = null;
+            while (rs.next()) {
+                p = new CustomerView(
                         rs.getInt("id_customer"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("address"),
+                        rs.getString("phone_number"),
                         rs.getInt("cp"),
-                        city
+                        rs.getString("name_city")
                 );
-                customers.add(p);
+                customerViews.add(p);
             }
             rs.close();
             st.close();
@@ -45,7 +83,7 @@ public class CustomerDAO {
             ex.printStackTrace();
             System.out.println("Error al recuperar información...");
         }
-        return customers;
+        return customerViews;
     }
 
     public Customer fetch(int trans_id) {
@@ -66,7 +104,8 @@ public class CustomerDAO {
                         rs.getString("last_name"),
                         rs.getString("address"),
                         rs.getInt("cp"),
-                        city
+                        //city
+                        rs.getInt("id_city")
                 );
             }
         } catch (SQLException ex) {

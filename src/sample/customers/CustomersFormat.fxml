@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="1000" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="1000" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            >
     <content>
         <VBox alignment="TOP_CENTER" spacing="20">
             <Label style="-fx-font-size: 50;-fx-font-family: 'Impact'" text="Clientes" />
@@ -21,11 +22,12 @@
                 </padding>
             </HBox>
             <HBox alignment="TOP_CENTER">
-                <TableView>
+                <TableView fx:id="tableViewCustomers">
                     <columns>
                         <!-- Nombre completo, dirección, teléfono, código postal y ciudad. -->
-                        <TableColumn fx:id="tvIdCustomer" prefWidth="100" text="ID" />
-                        <TableColumn fx:id="tvName" prefWidth="400" text="Name" />
+                        <TableColumn fx:id="tvIdCustomer" prefWidth="50" text="ID" />
+                        <TableColumn fx:id="tvFirstName" prefWidth="200" text="First Name" />
+                        <TableColumn fx:id="tvLastName" prefWidth="200" text="Last Name" />
                         <TableColumn fx:id="tvAddress" prefWidth="400" text="Address" />
                         <TableColumn fx:id="tvTelephone" prefWidth="150" text="Telephone" />
                         <TableColumn fx:id="tvCp" prefWidth="100" text="Cp" />

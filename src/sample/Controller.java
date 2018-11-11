@@ -53,7 +53,6 @@ public class Controller implements Initializable {
 
     EventHandler<ActionEvent> eventMenuItemCustomers = event -> {
         showCustomers(event);
-
     };
 
 
