@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
-    <GridPane id="" alignment="center" hgap="10" vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="20">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem text="Exit" />
+                </items>
+            </Menu>
+            <Menu text="Reports">
+                <items>
+                    <MenuItem fx:id="menuItemCustomers" text="Mostrar Clientes" />
+                    <MenuItem text="Facturas Pagadas" />
+                    <MenuItem text="Report 3" />
+                </items>
+            </Menu>
+            <Menu text="Help">
+                <items>
+                    <MenuItem text="About" />
+                    <MenuItem text="Opcion" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
 
-    <JFXTextField fx:id="tfNumber" focusColor="BLACK" prefHeight="40" prefWidth="80" promptText="Numero Telefonico" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+
+    <GridPane alignment="center" hgap="10" vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="20">
+
+    <JFXTextField fx:id="tfNumber" focusColor="BLACK" prefHeight="40" prefWidth="80" promptText="Número Telefonico" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
 
     <JFXButton fx:id="btnConsultar" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="0">
         <graphic>
@@ -48,6 +80,19 @@
         </graphic>
     </JFXButton>
 
+        <!-- Imagen -->
+        <StackPane GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="2">
+            <Group StackPane.alignment="CENTER">
+                <ImageView fitHeight="55" fitWidth="100" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+                    <image>
+                        <Image url="/rsc/Telmex_logo.png" />
+                    </image>
+                </ImageView>
+            </Group>
+        </StackPane>
+
+
     </GridPane>
+
 
 </AnchorPane>

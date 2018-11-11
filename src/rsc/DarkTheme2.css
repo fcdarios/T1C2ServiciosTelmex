@@ -1,22 +1,29 @@
 .root {
     -fx-background: rgb(255, 255, 255);
-    -fx-control-inner-background: rgb(50, 50, 50);
     -fx-font-family:"Roboto Regular";
     -fx-font-size: 15;
     -fx-text-fill: #0e0e0e;
 
 }
+.label{
+
+}
 
 .tab {
-    -fx-background-color: linear-gradient(to top, -fx-base, derive(-fxbase, 30%));
+    -fx-background-color: red;
 }
 
 .menu-bar {
-    -fx-background-color: linear-gradient(to bottom, -fx-base, derive(-fxbase, 30%));
+    -fx-background-color: #ececec;
+    -fx-font-size: 12;
+}
+.menu-item{
+    -fx-font-size: 11;
 }
 
 .tool-bar:horizontal {
-    -fx-background-color: linear-gradient(to bottom, derive(-fx-base, +50%), derive(-fxbase, -40%), derive(-fx-base, -20%));
+    -fx-background-color: red;
+
 }
 
 .button:hover {
@@ -34,7 +41,7 @@
 
 .jfx-text-field {
     -fx-font-family:"Roboto Regular";
-    -fx-font-size: 15;
+    -fx-font-size: 18;
     -fx-text-fill: #0e0e0e;
 }
 

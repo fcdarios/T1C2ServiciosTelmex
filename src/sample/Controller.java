@@ -11,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import sample.Invoice.InvoiceController;
+import sample.customers.ControllerCustomers;
 import sample.models.Invoice;
 import sample.models.dao.InvoiceDAO;
 import sample.models.dao.MySQL;
@@ -26,7 +28,8 @@ public class Controller implements Initializable {
     JFXButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnBorrar, btnConsultar, btnCancelar, btnAyuda;
     @FXML
     JFXTextField tfNumber;
-
+    @FXML
+    MenuItem menuItemCustomers;
     Invoice invoice = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
 
@@ -44,7 +47,14 @@ public class Controller implements Initializable {
         btn10.setOnAction(eventBtn);
         btnBorrar.setOnAction(eventBtn);
         btnConsultar.setOnAction(eventConsultar);
+
+        menuItemCustomers.setOnAction(eventMenuItemCustomers);
     }
+
+    EventHandler<ActionEvent> eventMenuItemCustomers = event -> {
+        showCustomers(event);
+
+    };
 
 
     EventHandler<ActionEvent> eventConsultar = event -> {
@@ -84,6 +94,29 @@ public class Controller implements Initializable {
             //invoice.setResizable(false);
             invoiceStage.show();
             ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+    }
+
+    private void showCustomers(ActionEvent event){
+        try {
+            Stage customersStage =new Stage();
+            customersStage.setTitle("Clientes");
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/customers/CustomersFormat.fxml"));
+
+            ControllerCustomers controllerCustomers = new ControllerCustomers();
+            // Mostrar clientes
+            loader.setController(controllerCustomers);
+
+            root=loader.load();
+            Scene scene=new Scene(root);
+            scene.getStylesheets().add("/rsc/DarkTheme2.css");
+            customersStage.setScene(scene);
+            customersStage.setMaximized(true);
+
+            customersStage.show();
         }catch (IOException e ){
             e.printStackTrace();
         }
