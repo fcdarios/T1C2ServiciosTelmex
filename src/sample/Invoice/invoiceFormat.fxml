@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="false">
+    <content>
+        <AnchorPane prefHeight="2000" >
+
+        <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <menus>
+                <Menu text="File">
+                    <items>
+                        <MenuItem text="Exit" />
+                    </items>
+                </Menu>
+                <Menu text="Catologs">
+                    <items>
+                        <MenuItem text="Opcion 1" />
+                        <MenuItem text="Opcion 2" />
+                        <MenuItem text="Opcion 3" />
+                    </items>
+                </Menu>
+                <Menu text="Reports">
+                    <items>
+                        <MenuItem text="Report 1" />
+                        <MenuItem text="Report 2" />
+                        <MenuItem text="Report 3" />
+                    </items>
+                </Menu>
+                <Menu text="Help">
+                    <items>
+                        <MenuItem text="About" />
+                        <MenuItem text="Opcion" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <ToolBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="30">
+            <items>
+                <Button>        <!--- Boton Guardar -->
+                    <graphic>
+                        <FontAwesomeIconView fill="black" glyphName="SAVE" glyphSize="30" />
+                    </graphic>
+                </Button>
+                <Button>         <!--- Boton Otro -->
+                    <graphic>
+                        <FontAwesomeIconView fill="black" glyphName="LIST_ALT" glyphSize="30" />
+                    </graphic>
+                </Button>
+                <Button>         <!--- Boton Otro2   -->
+                    <graphic>
+                        <FontAwesomeIconView fill="black" glyphName="LINE_CHART" glyphSize="30" />
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+
+        <GridPane hgap="50" vgap="10" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100" AnchorPane.topAnchor="80">
+            <Panel prefHeight="200" prefWidth="300" styleClass="panel-primary" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <heading>
+                    <Label styleClass="h3" text="Cliente" />
+                </heading>
+                <body>
+                    <VBox alignment="BASELINE_LEFT" spacing="10">
+                        <Label fx:id="lblFirstN" />
+                        <Label fx:id="lblLastN" />
+                        <Label fx:id="lblAddress" />
+                        <Label fx:id="lblCity" />
+                        <Label fx:id="lblCP" />
+                    </VBox>
+                </body>
+            </Panel>
+            <!-- Imagen -->
+               <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Group StackPane.alignment="CENTER">
+                    <ImageView fitHeight="150" fitWidth="300" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+                        <image>
+                            <Image url="/rsc/Telmex_logo.png" />
+                        </image>
+                    </ImageView>
+                </Group>
+            </StackPane>
+
+            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                <heading>
+                    <Label styleClass="h3" text="Pago" />
+                </heading>
+                <body>
+                    <GridPane>
+                        <Label text="Total a pagar:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Pagar antes de:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Mes de Facturacion:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Telefono:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label text="Factura No:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <Label text="599" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="07/Ago/2018" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Julio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="461..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="01294767498456" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Button fx:id="btnPay" text="Pagar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    </GridPane>
+                </body>
+            </Panel>
+
+            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <heading>
+                    <Label styleClass="h3" text="Estado de Cuenta" />
+                </heading>
+                <body>
+                    <GridPane>
+                        <Label text="Saldo anterior:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Su pago Gracias:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Saldo" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label text="Cargo por redondeo" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <Label text="Cargos del Mes" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="Iva 16%" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Subtotal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    </GridPane>
+                </body>
+            </Panel>
+            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <heading>
+                    <Label styleClass="h3" text="CARGOS DEL MES" />
+                </heading>
+                <body>
+                    <GridPane>
+                        <Label text="SERVICIO DE TELECOMUNICACIONES " GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="SERVICIOS ESPECIALES " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="IEPS 3%" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="IVA 16%" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label text="TOTAL" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+
+                        <Label text="328.44" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="19.90" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="6.89" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="56.83" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="412.06" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    </GridPane>
+                </body>
+            </Panel>
+        </GridPane>
+
+    <TableView AnchorPane.topAnchor="550" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
+        <columns>
+            <TableColumn prefWidth="100" text="fecha" />
+            <TableColumn prefWidth="100" text="hora" />
+            <TableColumn prefWidth="100" text="(lada)Telefono" />
+            <TableColumn prefWidth="100" text="Minutos" />
+            <TableColumn prefWidth="100" text="Importe" />
+        </columns>
+    </TableView>
+
+        </AnchorPane>
+     </content>
+   </ScrollPane>

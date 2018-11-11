@@ -7,27 +7,26 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
     <GridPane id="" alignment="center" hgap="10" vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
-    <JFXTextField fx:id="textField1" prefHeight="40" prefWidth="80" promptText="Numero Telefonico" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+    <JFXTextField fx:id="tfNumber" focusColor="BLACK" prefHeight="40" prefWidth="80" promptText="Numero Telefonico" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
 
-    <JFXButton fx:id="BtnConsultar" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="0">
+    <JFXButton fx:id="btnConsultar" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="0">
         <graphic>
             <FontAwesomeIconView fill="black" glyphName="SEARCH" glyphSize="20" />
         </graphic>
     </JFXButton>
 
-    <JFXButton fx:id="BtnCancelar" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Cancelar" GridPane.columnIndex="3" GridPane.rowIndex="1">
+    <JFXButton fx:id="btnCancelar" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Cancelar" GridPane.columnIndex="3" GridPane.rowIndex="1">
         <graphic>
             <FontAwesomeIconView fill="black" glyphName="CLOSE" glyphSize="20" />
         </graphic>
     </JFXButton>
 
-    <JFXButton fx:id="BtnAyuda" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Ayuda" GridPane.columnIndex="3" GridPane.rowIndex="2">
+    <JFXButton fx:id="btnAyuda" buttonType="RAISED" prefHeight="40" prefWidth="120" text="Ayuda" GridPane.columnIndex="3" GridPane.rowIndex="2">
         <graphic>
             <FontAwesomeIconView fill="black" glyphName="QUESTION" glyphSize="20" />
         </graphic>
@@ -48,6 +47,7 @@
             <FontAwesomeIconView fill="black" glyphName="ARROW_CIRCLE_LEFT" glyphSize="20" />
         </graphic>
     </JFXButton>
+
     </GridPane>
 
 </AnchorPane>
