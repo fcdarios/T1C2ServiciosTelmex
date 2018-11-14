@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import sample.models.City;
 import sample.models.Customer;
 import sample.models.CustomerView;
@@ -37,6 +38,8 @@ public class ControllerCustomers implements Initializable {
         tvTelephone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone_number"));
         tvCp.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("cp"));
         tvCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("name_city"));
+
+
 
         CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
         tableViewCustomers.setItems(customerDAO.findAllV());

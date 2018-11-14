@@ -29,8 +29,8 @@ public class PlansDAO {
             if(rs.first()) {
                 e = new Plans(
                         rs.getInt("id_plan"),
-                        rs.getInt("total"),
-                        rs.getString("name_plan")
+                        rs.getString("name_plan"),
+                        rs.getDouble("total")
                 );
             }
         } catch (SQLException ex) {

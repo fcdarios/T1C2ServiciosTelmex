@@ -15,7 +15,9 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import sample.Invoice.InvoiceController;
 import sample.customers.ControllerCustomers;
+import sample.models.Customer;
 import sample.models.Invoice;
+import sample.models.dao.CustomerDAO;
 import sample.models.dao.InvoiceDAO;
 import sample.models.dao.MySQL;
 
@@ -32,6 +34,8 @@ public class Controller implements Initializable {
     MenuItem menuItemCustomers;
     Invoice invoice = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
+    Customer customer = new Customer();
+    CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,12 +63,10 @@ public class Controller implements Initializable {
     EventHandler<ActionEvent> eventConsultar = event -> {
         if(validatePhoneNumber())
         {
+            invoice = invoiceDAO.fetch(customer.getId_customer());
             if(invoice.getPaid_amount() > 0)
             {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("WARNING");
-                alert.setContentText("Invoice already paid");
-                alert.show();
+                sendMessege("Arreglar");
             }
             else
             {
@@ -124,9 +126,9 @@ public class Controller implements Initializable {
     private boolean validatePhoneNumber(){
         boolean result = false;
         String phoneNumber = tfNumber.getText();
-        invoice = invoiceDAO.fetchByPhoneNumber(phoneNumber);
+        customer = customerDAO.fetchByPhoneNumber(phoneNumber);
 
-        if(invoice != null){
+        if(customer != null){
             result = true;
         }
         else sendMessege("Error, numero no encontrado");

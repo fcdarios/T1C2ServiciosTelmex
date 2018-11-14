@@ -2,14 +2,16 @@ package sample.models;
 
 public class Calls {
 
-    private  int id_calls;
-    private String date_hour,telephone_number,minutes;
+    private  int id_calls, minutes;
+    private Customer id_customer;
+    private String date_hour,phone_number;
 
-    public Calls(int id_calls, String date_hour, String telephone_number, String minutes) {
+    public Calls(int id_calls,Customer id_customer, String date_hour, String phone_number, int minutes) {
         this.id_calls = id_calls;
-        this.date_hour = date_hour;
-        this.telephone_number = telephone_number;
         this.minutes = minutes;
+        this.id_customer = id_customer;
+        this.date_hour = date_hour;
+        this.phone_number = phone_number;
     }
 
     public int getId_calls() {
@@ -20,6 +22,22 @@ public class Calls {
         this.id_calls = id_calls;
     }
 
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public Customer getId_customer() {
+        return id_customer;
+    }
+
+    public void setId_customer(Customer id_customer) {
+        this.id_customer = id_customer;
+    }
+
     public String getDate_hour() {
         return date_hour;
     }
@@ -28,19 +46,11 @@ public class Calls {
         this.date_hour = date_hour;
     }
 
-    public String getTelephone_number() {
-        return telephone_number;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setTelephone_number(String telephone_number) {
-        this.telephone_number = telephone_number;
-    }
-
-    public String getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(String minutes) {
-        this.minutes = minutes;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 }

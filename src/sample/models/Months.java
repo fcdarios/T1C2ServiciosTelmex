@@ -3,13 +3,13 @@ package sample.models;
 public class Months
 {
     int id_month;
-    String name;
+    String name_month;
 
     public Months() { }
 
-    public Months(int id_month, String name) {
+    public Months(int id_month, String name_month) {
         this.id_month = id_month;
-        this.name = name;
+        this.name_month = name_month;
     }
 
     public int getId_month() {
@@ -20,19 +20,11 @@ public class Months
         this.id_month = id_month;
     }
 
-    public String getName() {
-        return name;
+    public String getName_month() {
+        return name_month;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Months{" +
-                "id_month=" + id_month +
-                ", name='" + name + '\'' +
-                '}';
+    public void setName_month(String name_month) {
+        this.name_month = name_month;
     }
 }

@@ -2,19 +2,30 @@ package sample.models;
 
 public class Customer {
     private int id_customer, cp;
-    private int id_city;
-    private String first_name, last_name, address;
+    private City id_city;
+    private String first_name, last_name, address, phone_number;
 
-    public Customer(int id_customer, String first_name, String last_name, String address, int cp, int id_city) {
+    /*public Customer(int id_customer, String first_name, String last_name, String address, int cp, City id_city) {
         this.id_customer = id_customer;
         this.cp = cp;
         this.id_city = id_city;
         this.first_name = first_name;
         this.last_name = last_name;
         this.address = address;
-    }
+    }*/
 
     public Customer() {
+    }
+
+    public Customer(int id_customer, String first_name, String last_name, String address,
+                    String phone_number, int cp, City id_city) {
+        this.id_customer = id_customer;
+        this.cp = cp;
+        this.id_city = id_city;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.address = address;
+        this.phone_number = phone_number;
     }
 
     public int getId_customer() {
@@ -33,11 +44,11 @@ public class Customer {
         this.cp = cp;
     }
 
-    public int getId_city() {
+    public City getId_city() {
         return id_city;
     }
 
-    public void setId_city(int id_city) {
+    public void setId_city(City id_city) {
         this.id_city = id_city;
     }
 
@@ -45,8 +56,8 @@ public class Customer {
         return first_name;
     }
 
-    public void setFirst_name(String firs_name) {
-        this.first_name = firs_name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
     public String getLast_name() {
@@ -65,8 +76,11 @@ public class Customer {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Id "+id_customer;
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 }

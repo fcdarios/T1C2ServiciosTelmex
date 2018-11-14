@@ -2,15 +2,16 @@ package sample.models;
 
 public class Plans
 {
-    int id_plan, total;
-    String nombre_plan;
+    private int id_plan;
+    private Double total;
+    private String name_plan;
 
     public Plans() { }
 
-    public Plans(int id_plan, int total, String nombre_plan) {
+    public Plans(int id_plan, String name_plan, Double total) {
         this.id_plan = id_plan;
         this.total = total;
-        this.nombre_plan = nombre_plan;
+        this.name_plan = name_plan;
     }
 
     public int getId_plan() {
@@ -21,28 +22,19 @@ public class Plans
         this.id_plan = id_plan;
     }
 
-    public int getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
-    public String getNombre_plan() {
-        return nombre_plan;
+    public String getName_plan() {
+        return name_plan;
     }
 
-    public void setNombre_plan(String nombre_plan) {
-        this.nombre_plan = nombre_plan;
-    }
-
-    @Override
-    public String toString() {
-        return "Plans{" +
-                "id_plan=" + id_plan +
-                ", total=" + total +
-                ", nombre_plan='" + nombre_plan + '\'' +
-                '}';
+    public void setName_plan(String name_plan) {
+        this.name_plan = name_plan;
     }
 }

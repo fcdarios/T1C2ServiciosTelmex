@@ -22,8 +22,7 @@ import java.util.ResourceBundle;
 public class InvoiceController implements Initializable
 {
     @FXML Label lblFirstN,lblLastN,lblCity,lblCP;
-    @FXML
-    Button btnPay;
+    @FXML Button btnPay;
 
     private Invoice inv = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());

@@ -27,4 +27,9 @@ public class City
     public void setName_city(String name_city) {
         this.name_city = name_city;
     }
+
+    @Override
+    public String toString() {
+        return name_city;
+    }
 }

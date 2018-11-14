@@ -18,40 +18,7 @@ public class InvoiceDAO
         data.add(invoice);
     }
 
-    public Invoice fetchByPhoneNumber(String phone_number)
-    {
-        ResultSet rs = null;
-        Invoice e = null;
-        try {
-            String query = "SELECT * FROM Invoice where phone_number = " + "'" + phone_number + "'";
-            Statement st = conn.createStatement();
-            rs = st.executeQuery(query);
 
-            if (rs.first())
-            {
-                PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
-                MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
-                CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
-
-                e = new Invoice(
-                        rs.getInt("no_invoice"),
-                        rs.getString("limit_date"),
-                        rs.getString("phone_number"),
-                        customerDAO.fetch(rs.getInt("id_customer")),
-                        monthsDAO.fetch(rs.getInt("id_month")),
-                        plansDAO.fetch(rs.getInt("id_plan"))
-                );
-                e.setPaid_amount(rs.getDouble("paid_amount"));
-                e.setPaid_date(rs.getDate("paid_date"));
-            }
-
-            } catch(SQLException ex){
-                ex.printStackTrace();
-                System.out.println("Error al recuperar información..." + ex.getMessage());
-            }
-
-        return e;
-    }
 
     public Boolean updatePayment(double paid_amount, int no_invoice)
     {
@@ -73,5 +40,34 @@ public class InvoiceDAO
         return false;
     }
 
+    public Invoice fetch(int trans_id) {
+        ResultSet rs = null;
+        Invoice e = null;
+        try {
+            String query = "SELECT * FROM Invoice where id_customer = " + trans_id;
+            Statement st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            if(rs.last()) {
+                MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
+                PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
+                CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
+
+                e = new Invoice(
+                        rs.getInt("no_invoice"),
+                        rs.getDate("limit_date"),
+                        monthsDAO.fetch(rs.getInt("id_month")),
+                        plansDAO.fetch(rs.getInt("id_plan")),
+                        customerDAO.fetch(rs.getInt("id_customer")),
+                        rs.getDouble("paid_amount"),
+                        rs.getDate("paid_date")
+                );
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al recuperar información...");
+        }
+        return e;
+    }
 
 }

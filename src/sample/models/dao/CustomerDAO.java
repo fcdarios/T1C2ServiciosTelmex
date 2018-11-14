@@ -2,7 +2,6 @@ package sample.models.dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.models.City;
 import sample.models.Customer;
 import sample.models.CustomerView;
 
@@ -21,7 +20,7 @@ public class CustomerDAO {
 
     public static void addTransaction(Customer customer) { data.add(customer); }
 
-    /*public ObservableList<Customer> findAll() {
+    public ObservableList<Customer> findAll() {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
         try {
@@ -30,21 +29,16 @@ public class CustomerDAO {
             ResultSet rs = st.executeQuery(query);
             Customer p = null;
             if (rs.first()) {
-                //CityDAO cityDAO = new CityDAO(MySQL.getConnection());
                 CityDAO cityDAO = new CityDAO(MySQL.getConnection());
                 while (rs.next()) {
-                    City city = new City();
-                    city.setId_city(rs.getInt("id_city"));
-
-                    p = new sample.models.Customer(
+                    p = new Customer(
                             rs.getInt("id_customer"),
                             rs.getString("first_name"),
                             rs.getString("last_name"),
                             rs.getString("address"),
+                            rs.getString("phone_number"),
                             rs.getInt("cp"),
-                            //cityDAO.fetch(rs.getInt("id_city"))
-                            //city
-                            rs.getInt("id_city")
+                            cityDAO.fetch(rs.getInt("id_city"))
                     );
                     customers.add(p);
                 }
@@ -56,7 +50,7 @@ public class CustomerDAO {
             System.out.println("Error al recuperar información...");
         }
         return customers;
-    }*/
+    }
 
     public ObservableList<CustomerView> findAllV() {
         ObservableList<CustomerView> customerViews = FXCollections.observableArrayList();
@@ -95,22 +89,49 @@ public class CustomerDAO {
             rs = st.executeQuery(query);
 
             if(rs.first()) {
-                City city = new City();
-                city.setId_city(rs.getInt("id_city"));
-
+                CityDAO cityDAO = new CityDAO(MySQL.getConnection());
                 e = new Customer(
                         rs.getInt("id_customer"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("address"),
+                        rs.getString("phone_number"),
                         rs.getInt("cp"),
-                        //city
-                        rs.getInt("id_city")
+                        cityDAO.fetch(rs.getInt("id_city"))
                 );
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error al recuperar información...");
+        }
+        return e;
+    }
+
+    public Customer fetchByPhoneNumber(String phone_number)
+    {
+        ResultSet rs = null;
+        Customer e = null;
+        try {
+            String query = "SELECT * FROM Customer WHERE phone_number = " + "'" + phone_number + "'";
+            Statement st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            if (rs.first())
+            {
+                CityDAO cityDAO = new CityDAO(MySQL.getConnection());
+                e = new Customer(
+                        rs.getInt("id_customer"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("phone_number"),
+                        rs.getInt("cp"),
+                        cityDAO.fetch(rs.getInt("id_city"))
+                );
+            }
+        } catch(SQLException ex){
+            ex.printStackTrace();
+            System.out.println("Error al recuperar información..." + ex.getMessage());
         }
         return e;
     }
