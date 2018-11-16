@@ -44,11 +44,12 @@ public class InvoiceDAO
         ResultSet rs = null;
         Invoice e = null;
         try {
-            String query = "SELECT * FROM Invoice where id_customer = " + trans_id;
+            String query = "SELECT * FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
+                    "where id_customer = " + trans_id +" AND i.paid_amount < p.total;";
             Statement st = conn.createStatement();
             rs = st.executeQuery(query);
 
-            if(rs.last()) {
+            if(rs.first()) {
                 MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
                 PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
                 CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());

@@ -17,9 +17,11 @@ import sample.Invoice.InvoiceController;
 import sample.customers.ControllerCustomers;
 import sample.models.Customer;
 import sample.models.Invoice;
+import sample.models.Plans;
 import sample.models.dao.CustomerDAO;
 import sample.models.dao.InvoiceDAO;
 import sample.models.dao.MySQL;
+import sample.models.dao.PlansDAO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +38,8 @@ public class Controller implements Initializable {
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
     Customer customer = new Customer();
     CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
+    Plans plans = new Plans();
+    PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,10 +65,11 @@ public class Controller implements Initializable {
 
 
     EventHandler<ActionEvent> eventConsultar = event -> {
-        if(validatePhoneNumber())
-        {
+        if(validatePhoneNumber()) {
             invoice = invoiceDAO.fetch(customer.getId_customer());
-            if(invoice.getPaid_amount() > 0)
+            Double plansPrice = invoice.getId_plan().getTotal();
+            System.out.println(plansPrice);
+            if(invoice.getPaid_amount() == plansPrice)
             {
                 sendMessege("Arreglar");
             }
@@ -89,7 +94,7 @@ public class Controller implements Initializable {
 
             root=loader.load();
             Scene scene=new Scene(root);
-            scene.getStylesheets().add("bootstrapfx.css");
+            scene.getStylesheets().add("/rsc/DarkTheme2.css");
             invoiceStage.setScene(scene);
             invoiceStage.setMaximized(true);
             //invoice.setResizable(false);

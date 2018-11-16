@@ -1,10 +1,14 @@
 package sample.models;
 
+
+import java.sql.Date;
+
 public class Calls {
 
-    private  int id_calls, minutes;
+    private  int id_calls, minutes, noCall;
     private Customer id_customer;
-    private String date_hour,phone_number;
+    private String phone_number;
+    private String date_hour;
 
     public Calls(int id_calls,Customer id_customer, String date_hour, String phone_number, int minutes) {
         this.id_calls = id_calls;
@@ -12,6 +16,24 @@ public class Calls {
         this.id_customer = id_customer;
         this.date_hour = date_hour;
         this.phone_number = phone_number;
+    }
+
+    public Calls(int noCall, String date_hour, String phone_number, int minutes) {
+        this.minutes = minutes;
+        this.noCall = noCall;
+        this.phone_number = phone_number;
+        this.date_hour = date_hour;
+    }
+
+    public Calls() {
+    }
+
+    public int getNoCall() {
+        return noCall;
+    }
+
+    public void setNoCall(int noCall) {
+        this.noCall = noCall;
     }
 
     public int getId_calls() {

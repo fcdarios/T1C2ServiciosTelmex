@@ -83,9 +83,9 @@
         <!-- Imagen -->
         <StackPane GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="2">
             <Group StackPane.alignment="CENTER">
-                <ImageView fitHeight="55" fitWidth="100" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+                <ImageView fitHeight="70" fitWidth="120" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
                     <image>
-                        <Image url="/rsc/Telmex_logo.png" />
+                        <Image url="/rsc/Telmex_logo2.png" />
                     </image>
                 </ImageView>
             </Group>

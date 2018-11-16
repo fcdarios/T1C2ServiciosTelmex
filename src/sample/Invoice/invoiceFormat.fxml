@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import org.kordamp.bootstrapfx.scene.layout.Panel?>
-<ScrollPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="false">
-    <content>
-        <AnchorPane prefHeight="2000" >
 
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+    <content>
+        <VBox alignment="TOP_CENTER">
         <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
             <menus>
                 <Menu text="File">
@@ -40,46 +54,33 @@
                 </Menu>
             </menus>
         </MenuBar>
+            <ToolBar>
+                <items>
+                    <Button>        <!--- Boton Guardar -->
+                        <graphic>
+                            <FontAwesomeIconView fill="black" glyphName="SAVE" glyphSize="30" />
+                        </graphic>
+                    </Button>
+                    <Button>         <!--- Boton Otro -->
+                        <graphic>
+                            <FontAwesomeIconView fill="black" glyphName="LIST_ALT" glyphSize="30" />
+                        </graphic>
+                    </Button>
+                    <Button>         <!--- Boton Otro2   -->
+                        <graphic>
+                            <FontAwesomeIconView fill="black" glyphName="LINE_CHART" glyphSize="30" />
+                        </graphic>
+                    </Button>
+                </items>
+            </ToolBar>
+        <AnchorPane >
 
-        <ToolBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="30">
-            <items>
-                <Button>        <!--- Boton Guardar -->
-                    <graphic>
-                        <FontAwesomeIconView fill="black" glyphName="SAVE" glyphSize="30" />
-                    </graphic>
-                </Button>
-                <Button>         <!--- Boton Otro -->
-                    <graphic>
-                        <FontAwesomeIconView fill="black" glyphName="LIST_ALT" glyphSize="30" />
-                    </graphic>
-                </Button>
-                <Button>         <!--- Boton Otro2   -->
-                    <graphic>
-                        <FontAwesomeIconView fill="black" glyphName="LINE_CHART" glyphSize="30" />
-                    </graphic>
-                </Button>
-            </items>
-        </ToolBar>
+        <GridPane  hgap="50" vgap="10" alignment="CENTER" AnchorPane.leftAnchor="70" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
 
-        <GridPane hgap="50" vgap="10" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100" AnchorPane.topAnchor="80">
-            <Panel prefHeight="200" prefWidth="300" styleClass="panel-primary" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <heading>
-                    <Label styleClass="h3" text="Cliente" />
-                </heading>
-                <body>
-                    <VBox alignment="BASELINE_LEFT" spacing="10">
-                        <Label fx:id="lblFirstN" />
-                        <Label fx:id="lblLastN" />
-                        <Label fx:id="lblAddress" />
-                        <Label fx:id="lblCity" />
-                        <Label fx:id="lblCP" />
-                    </VBox>
-                </body>
-            </Panel>
             <!-- Imagen -->
-               <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <Group StackPane.alignment="CENTER">
-                    <ImageView fitHeight="150" fitWidth="300" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+               <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Group StackPane.alignment="TOP_LEFT">
+                    <ImageView fitHeight="80" fitWidth="400" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
                         <image>
                             <Image url="/rsc/Telmex_logo.png" />
                         </image>
@@ -87,9 +88,28 @@
                 </Group>
             </StackPane>
 
-            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <!-- Panel Datos del cliente-->
+            <Panel prefHeight="200" prefWidth="300" GridPane.columnIndex="1">
                 <heading>
-                    <Label styleClass="h3" text="Pago" />
+                    <Label text="Cliente" />
+                </heading>
+                <body>
+                    <GridPane hgap="10">
+                        <Label text="Nombre: "      GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <Label text="Dirección: "   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <Label text="Ciudad: "      GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <Label text="CP: "          GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <Label fx:id="lblName"      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label fx:id="lblAddress"   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label fx:id="lblCity"      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label fx:id="lblCP"        GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    </GridPane>
+                </body>
+            </Panel>
+
+            <Panel prefHeight="200" prefWidth="400" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <heading>
+                    <Label text="Pago" />
                 </heading>
                 <body>
                     <GridPane>
@@ -108,9 +128,9 @@
                 </body>
             </Panel>
 
-            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Panel prefHeight="200" prefWidth="400" GridPane.columnIndex="2" GridPane.rowIndex="2">
                 <heading>
-                    <Label styleClass="h3" text="Estado de Cuenta" />
+                    <Label text="Estado de Cuenta" />
                 </heading>
                 <body>
                     <GridPane>
@@ -125,7 +145,7 @@
                     </GridPane>
                 </body>
             </Panel>
-            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <heading>
                     <Label styleClass="h3" text="CARGOS DEL MES" />
                 </heading>
@@ -145,18 +165,18 @@
                     </GridPane>
                 </body>
             </Panel>
+   
+           <TableView fx:id="tvCalls" prefWidth="500" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <columns>
+                   <TableColumn fx:id="tcNoCalls" prefWidth="100" text="No. Llamada" />
+                   <TableColumn fx:id="tcDate" prefWidth="200" text="Fecha y hora" />
+                   <TableColumn fx:id="tcPhoneNumber" prefWidth="100" text="Número" />
+                   <TableColumn fx:id="tcMinuntes" prefWidth="100" text="Minutos" />
+               </columns>
+           </TableView>
         </GridPane>
 
-    <TableView AnchorPane.topAnchor="550" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
-        <columns>
-            <TableColumn prefWidth="100" text="fecha" />
-            <TableColumn prefWidth="100" text="hora" />
-            <TableColumn prefWidth="100" text="(lada)Telefono" />
-            <TableColumn prefWidth="100" text="Minutos" />
-            <TableColumn prefWidth="100" text="Importe" />
-        </columns>
-    </TableView>
-
         </AnchorPane>
+        </VBox>
      </content>
    </ScrollPane>

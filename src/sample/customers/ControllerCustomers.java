@@ -39,11 +39,8 @@ public class ControllerCustomers implements Initializable {
         tvCp.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("cp"));
         tvCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("name_city"));
 
-
-
         CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
         tableViewCustomers.setItems(customerDAO.findAllV());
-
     }
 
 
