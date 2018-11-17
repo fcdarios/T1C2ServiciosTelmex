@@ -111,7 +111,7 @@ public class InvoiceController implements Initializable
 
             root=loader.load();
             Scene scene=new Scene(root, 500, 350);
-            scene.getStylesheets().add("/rsc/DarkTheme2.css");
+            scene.getStylesheets().add("/rsc/Theme.css");
             paymentStage.setScene(scene);
             paymentStage.show();
         }catch (IOException e ){
