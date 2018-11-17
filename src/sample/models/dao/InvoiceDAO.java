@@ -8,17 +8,13 @@ import java.sql.*;
 
 public class InvoiceDAO
 {
-
     Connection conn;
-
     private static ObservableList<Invoice> data = FXCollections.observableArrayList();
     public InvoiceDAO(Connection conn) { this.conn = conn; }
     public static void addTransaction(Invoice invoice)
     {
         data.add(invoice);
     }
-
-
 
     public Boolean updatePayment(double paid_amount, int no_invoice)
     {
@@ -50,6 +46,37 @@ public class InvoiceDAO
             rs = st.executeQuery(query);
 
             if(rs.first()) {
+                MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
+                PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
+                CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
+
+                e = new Invoice(
+                        rs.getInt("no_invoice"),
+                        rs.getDate("limit_date"),
+                        monthsDAO.fetch(rs.getInt("id_month")),
+                        plansDAO.fetch(rs.getInt("id_plan")),
+                        customerDAO.fetch(rs.getInt("id_customer")),
+                        rs.getDouble("paid_amount"),
+                        rs.getDate("paid_date")
+                );
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al recuperar información...");
+        }
+        return e;
+    }
+
+    public Invoice fetchBefore(int trans_id) {
+        ResultSet rs = null;
+        Invoice e = null;
+        try {
+            String query = "SELECT * FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
+                    "where id_customer = " + trans_id +" AND i.paid_amount = p.total;";
+            Statement st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            if(rs.last()) {
                 MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
                 PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
                 CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());

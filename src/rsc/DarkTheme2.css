@@ -154,11 +154,13 @@
     -fx-font-size: 25px;
 
 }
-
-
 .panel-title {
     -fx-font-size: 16px;
     -fx-text-fill: #ff1000;
+}
+
+.GridPane{
+
 }
 
 

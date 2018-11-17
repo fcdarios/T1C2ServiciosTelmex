@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -73,9 +74,9 @@
                     </Button>
                 </items>
             </ToolBar>
-        <AnchorPane >
+        <AnchorPane>
 
-        <GridPane  hgap="50" vgap="10" alignment="CENTER" AnchorPane.leftAnchor="70" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
+        <GridPane alignment="CENTER" hgap="50" vgap="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
 
             <!-- Imagen -->
                <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -94,79 +95,59 @@
                     <Label text="Cliente" />
                 </heading>
                 <body>
-                    <GridPane hgap="10">
-                        <Label text="Nombre: "      GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                        <Label text="Dirección: "   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                        <Label text="Ciudad: "      GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                        <Label text="CP: "          GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                        <Label fx:id="lblName"      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                        <Label fx:id="lblAddress"   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                        <Label fx:id="lblCity"      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                        <Label fx:id="lblCP"        GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <GridPane hgap="20" vgap="5">
+                        <Label text="Nombre: " GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Dirección: " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Ciudad: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="CP: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label fx:id="lblName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="lblAddress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblCity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblCP" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </GridPane>
                 </body>
             </Panel>
 
-            <Panel prefHeight="200" prefWidth="400" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <Panel prefHeight="200" prefWidth="300" GridPane.columnIndex="2" GridPane.rowIndex="0">
                 <heading>
                     <Label text="Pago" />
                 </heading>
                 <body>
-                    <GridPane>
+                    <GridPane hgap="40" vgap="5">
                         <Label text="Total a pagar:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <Label text="Pagar antes de:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                         <Label text="Mes de Facturacion:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                         <Label text="Telefono:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                         <Label text="Factura No:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <Label text="599" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label text="07/Ago/2018" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Julio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="461..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="01294767498456" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Button fx:id="btnPay" text="Pagar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="lblPayment" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="lblLimitDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblMonth" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblNoInvoice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <JFXButton fx:id="btnPay" buttonType="RAISED" prefWidth="200" text="Pagar" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                     </GridPane>
                 </body>
             </Panel>
 
-            <Panel prefHeight="200" prefWidth="400" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Panel prefHeight="200" prefWidth="300" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <heading>
                     <Label text="Estado de Cuenta" />
                 </heading>
                 <body>
-                    <GridPane>
-                        <Label text="Saldo anterior:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label text="Su pago Gracias:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Label text="" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <Label text="Saldo" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <Label text="Cargo por redondeo" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <Label text="Cargos del Mes" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label text="Iva 16%" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Subtotal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <GridPane hgap="40" vgap="5">
+                        <Label text="Saldo anterior: " GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="Su pago Gracias: " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Fecha Pago: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Saldo al corte: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label fx:id="lblPaymentA" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                        <Label fx:id="lblPaidAmount" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <Label fx:id="lblPaidDate" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <Label fx:id="lblPaymentB" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                     </GridPane>
                 </body>
             </Panel>
-            <Panel prefHeight="200" prefWidth="400" styleClass="panel-primary" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                <heading>
-                    <Label styleClass="h3" text="CARGOS DEL MES" />
-                </heading>
-                <body>
-                    <GridPane>
-                        <Label text="SERVICIO DE TELECOMUNICACIONES " GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label text="SERVICIOS ESPECIALES " GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Label text="IEPS 3%" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <Label text="IVA 16%" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <Label text="TOTAL" GridPane.columnIndex="0" GridPane.rowIndex="4" />
 
-                        <Label text="328.44" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label text="19.90" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="6.89" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="56.83" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="412.06" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    </GridPane>
-                </body>
-            </Panel>
-   
-           <TableView fx:id="tvCalls" prefWidth="500" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+           <TableView fx:id="tvCalls" prefHeight="300" prefWidth="500" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <columns>
                    <TableColumn fx:id="tcNoCalls" prefWidth="100" text="No. Llamada" />
                    <TableColumn fx:id="tcDate" prefWidth="200" text="Fecha y hora" />
