@@ -1,0 +1,56 @@
+.root {
+    -fx-background: transparent;
+
+
+}
+
+.lbl{
+    -fx-font-family:"Roboto Bold";
+    -fx-font-size: 20;
+    -fx-text-fill: #0e0e0e;
+}
+.panel{
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 5, 5, 5, 5;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, #0e0e0e,10, 0, 0, 0);
+}
+
+.panel-heading{
+    -fx-background-color: #006eed;
+    -fx-background-insets: 5, 5, 5, 5;
+    -fx-background-radius: 20 20 0 0;
+    -fx-pref-height: 80;
+}
+
+.panel-heading * {
+    -fx-text-fill: white;
+    -fx-font-family:"Arial Black";
+    -fx-font-size: 50;
+    -fx-border-width: 5;
+    -fx-pref-width: 500;
+    -fx-alignment: center;
+}
+.panel-body {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.button:hover {
+    -fx-background-color: #0378b3;
+    -fx-color: -fx-hover-base;
+}
+.button {
+    -fx-background-color: #039adc;
+    -fx-background-radius: 20px;
+    -fx-pref-width: 150;
+    -fx-text-fill: #0e0e0e;
+
+}
+
+
+
+
+
+
+

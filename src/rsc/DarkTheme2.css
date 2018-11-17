@@ -6,6 +6,17 @@
 
 }
 
+.panel.fondo{
+    -fx-background: transparent;
+    -fx-background-color: #7bb9a0;
+    -fx-background-insets: 10, 10, 50, 20;
+    -fx-background-radius: 50;
+    -fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);
+}
+
+
+
+
 
 .tab {
     -fx-background-color: red;

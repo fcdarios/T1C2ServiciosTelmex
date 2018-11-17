@@ -121,8 +121,8 @@ public class Controller implements Initializable {
             scene.getStylesheets().add("/rsc/DarkTheme2.css");
             customersStage.setScene(scene);
             customersStage.setMaximized(true);
-
             customersStage.show();
+            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
         }catch (IOException e ){
             e.printStackTrace();
         }

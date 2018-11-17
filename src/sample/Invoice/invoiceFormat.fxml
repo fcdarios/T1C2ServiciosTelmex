@@ -57,21 +57,21 @@
         </MenuBar>
             <ToolBar>
                 <items>
-                    <Button>        <!--- Boton Guardar -->
+                    <JFXButton buttonType="RAISED">        <!--- Boton Guardar -->
                         <graphic>
-                            <FontAwesomeIconView fill="black" glyphName="SAVE" glyphSize="30" />
+                            <FontAwesomeIconView fill="white" glyphName="SAVE" glyphSize="30" />
                         </graphic>
-                    </Button>
-                    <Button>         <!--- Boton Otro -->
+                    </JFXButton>
+                    <JFXButton buttonType="RAISED">         <!--- Boton Otro -->
                         <graphic>
-                            <FontAwesomeIconView fill="black" glyphName="LIST_ALT" glyphSize="30" />
+                            <FontAwesomeIconView fill="white" glyphName="LIST_ALT" glyphSize="30" />
                         </graphic>
-                    </Button>
-                    <Button>         <!--- Boton Otro2   -->
+                    </JFXButton>
+                    <JFXButton buttonType="RAISED">         <!--- Boton Otro2   -->
                         <graphic>
-                            <FontAwesomeIconView fill="black" glyphName="LINE_CHART" glyphSize="30" />
+                            <FontAwesomeIconView fill="white" glyphName="LINE_CHART" glyphSize="30" />
                         </graphic>
-                    </Button>
+                    </JFXButton>
                 </items>
             </ToolBar>
         <AnchorPane>

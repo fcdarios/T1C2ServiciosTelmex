@@ -1,5 +1,10 @@
 package sample.Invoice;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -9,7 +14,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import sample.Main;
 import sample.models.Calls;
 import sample.models.Customer;
@@ -104,20 +113,17 @@ public class InvoiceController implements Initializable
             paymentStage.setTitle("Pago");
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/payment/PaymentFormat.fxml"));
-
             ControllerPayment controllerPayment = new ControllerPayment();
             controllerPayment.setInvoice(invoice);
             loader.setController(controllerPayment);
-
             root=loader.load();
             Scene scene=new Scene(root, 500, 350);
-            scene.getStylesheets().add("/rsc/Theme.css");
+            scene.getStylesheets().add("/rsc/Theme3.css");
             paymentStage.setScene(scene);
+            paymentStage.initStyle(StageStyle.UNDECORATED);
             paymentStage.show();
         }catch (IOException e ){
             e.printStackTrace();
         }
     }
-
-
 }
