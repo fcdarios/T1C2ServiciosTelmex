@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.Main;
@@ -40,7 +41,7 @@ public class InvoiceController implements Initializable
     @FXML private Label lblName,lblCity,lblCP, lblAddress;
     @FXML private Label lblPayment,lblLimitDate,lblMonth, lblPhone, lblNoInvoice;
     @FXML private Label lblPaymentA, lblPaymentB, lblPaidAmount, lblPaidDate;
-    @FXML private Button btnPay;
+    @FXML private JFXButton btnPay;
     @FXML private TableView<Calls> tvCalls;
     @FXML private TableColumn tcNoCalls, tcDate, tcPhoneNumber, tcMinuntes;
 
@@ -49,10 +50,10 @@ public class InvoiceController implements Initializable
     private Calls calls = new Calls();
     private CallsDAO callsDAO = new CallsDAO(MySQL.getConnection());
 
-    public void setInvoice(Invoice invoice)
-    {
-        this.invoice = invoice;
+    public void setInvoice(Invoice invoice) { this.invoice = invoice;
+
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -61,13 +62,17 @@ public class InvoiceController implements Initializable
         showPayment();
         showResume();
         showCalls(invoice.getId_customer().getId_customer(), invoice.getId_month().getId_month());
+        if(invoice.getPaid_amount() == invoice.getId_plan().getTotal())
+            btnPay.setDisable(true);
+        else
+            btnPay.setDisable(false);
 
         btnPay.setOnAction(eventBtnPay);
     }
 
     private void showResume() {
         Invoice invoiceB = new Invoice();
-        invoiceB = invoiceDAO.fetchBefore(invoice.getId_customer().getId_customer());
+        invoiceB = invoiceDAO.fetchBeforeLast(invoice.getId_customer().getId_customer());
 
         lblPaymentA.setText(invoiceB.getId_plan().getTotal()+"");
         lblPaidAmount.setText(invoiceB.getPaid_amount()+"");
@@ -120,8 +125,10 @@ public class InvoiceController implements Initializable
             Scene scene=new Scene(root, 500, 350);
             scene.getStylesheets().add("/rsc/Theme3.css");
             paymentStage.setScene(scene);
-            paymentStage.initStyle(StageStyle.UNDECORATED);
+            paymentStage.initStyle(StageStyle.UTILITY);
+            paymentStage.setResizable(false);
             paymentStage.show();
+            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
         }catch (IOException e ){
             e.printStackTrace();
         }

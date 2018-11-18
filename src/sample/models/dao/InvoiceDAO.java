@@ -36,12 +36,12 @@ public class InvoiceDAO
         return false;
     }
 
-    public Invoice fetch(int trans_id) {
+    public Invoice fetchLast(int trans_id) {
         ResultSet rs = null;
         Invoice e = null;
         try {
-            String query = "SELECT * FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
-                    "where id_customer = " + trans_id +" AND i.paid_amount < p.total;";
+            String query = "SELECT i.* FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
+                    "where id_customer = " + trans_id +" AND i.paid_amount < p.total";
             Statement st = conn.createStatement();
             rs = st.executeQuery(query);
 
@@ -67,15 +67,14 @@ public class InvoiceDAO
         return e;
     }
 
-    public Invoice fetchBefore(int trans_id) {
+    public Invoice fetchBeforeLast(int trans_id) {
         ResultSet rs = null;
         Invoice e = null;
         try {
             String query = "SELECT * FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
-                    "where id_customer = " + trans_id +" AND i.paid_amount = p.total;";
+                    "where id_customer = " + trans_id +" AND i.paid_amount = p.total";
             Statement st = conn.createStatement();
             rs = st.executeQuery(query);
-
             if(rs.last()) {
                 MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
                 PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());

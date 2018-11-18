@@ -1,17 +1,24 @@
 package sample;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Invoice.InvoiceController;
 import sample.customers.ControllerCustomers;
@@ -34,6 +41,8 @@ public class Controller implements Initializable {
     JFXTextField tfNumber;
     @FXML
     MenuItem menuItemCustomers;
+    @FXML
+    StackPane myStackPane;
     Invoice invoice = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
     Customer customer = new Customer();
@@ -66,18 +75,12 @@ public class Controller implements Initializable {
 
     EventHandler<ActionEvent> eventConsultar = event -> {
         if(validatePhoneNumber()) {
-            invoice = invoiceDAO.fetch(customer.getId_customer());
-            Double plansPrice = invoice.getId_plan().getTotal();
-            System.out.println(plansPrice);
-            if(invoice.getPaid_amount() == plansPrice)
-            {
-                sendMessege("Arreglar");
-            }
-            else
-            {
+            invoice = invoiceDAO.fetchLast(customer.getId_customer());
+            if (invoice != null) {
                 showInvoice(event);
+                tfNumber.setText("");
             }
-            tfNumber.setText("");
+            else showDialog("Alerta","El pago ya a sido realizado\nDesea ver el recibo" ,event);
         }
     };
 
@@ -132,11 +135,10 @@ public class Controller implements Initializable {
         boolean result = false;
         String phoneNumber = tfNumber.getText();
         customer = customerDAO.fetchByPhoneNumber(phoneNumber);
-
         if(customer != null){
             result = true;
         }
-        else sendMessege("Error, numero no encontrado");
+        else showDialog("ALERTA","Error, numero no encontrado",null);
         return result;}
 
     private EventHandler<ActionEvent> eventBtn = new EventHandler<ActionEvent>() {
@@ -158,11 +160,38 @@ public class Controller implements Initializable {
         }
     };
 
-    void sendMessege(String alerta){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Detalles");
-        alert.setHeaderText("");
-        alert.setContentText(alerta);
-        alert.show();
+
+    private void showDialog(String titulo, String text, ActionEvent event){
+        String title = titulo ;
+        String content = text;
+
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
+        dialogContent.setHeading(new Text(title));
+        dialogContent.setBody(new Text(content));
+        dialogContent.setAlignment(Pos.CENTER);
+
+        JFXButton close = new JFXButton();
+        close.setButtonType(JFXButton.ButtonType.RAISED);
+        close.setText("NO");
+        close.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;" +
+                "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
+
+        JFXButton open = new JFXButton();
+        open.setButtonType(JFXButton.ButtonType.RAISED);
+        open.setText("SI");
+        open.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;" +
+                "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
+
+        dialogContent.setActions(close, open);
+        JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+        close.setOnAction(eventClose -> {
+            dialog.close();
+            tfNumber.setText("");
+        });
+        open.setOnAction(eventOpen -> {
+            dialog.close();
+            tfNumber.setText("");
+        });
+        dialog.show();
     }
 }

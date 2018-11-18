@@ -1,25 +1,22 @@
 package sample.customers;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-import sample.models.City;
+import javafx.stage.Stage;
+import sample.Main;
 import sample.models.Customer;
 import sample.models.CustomerView;
 import sample.models.dao.CustomerDAO;
 import sample.models.dao.MySQL;
-
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.ResourceBundle;
 
 public class ControllerCustomers implements Initializable {
@@ -41,7 +38,13 @@ public class ControllerCustomers implements Initializable {
 
         CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
         tableViewCustomers.setItems(customerDAO.findAllV());
+
+        btnSalir.setOnAction(eventClose);
     }
 
+    private EventHandler<ActionEvent> eventClose = event -> {
+        Main.primaryStage.show();
+        ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+    };
 
 }

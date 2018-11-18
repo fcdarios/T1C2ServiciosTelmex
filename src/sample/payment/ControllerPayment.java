@@ -8,13 +8,17 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.Invoice.InvoiceController;
 import sample.Main;
 import sample.models.Invoice;
 import sample.models.dao.InvoiceDAO;
@@ -50,26 +54,28 @@ public class ControllerPayment implements Initializable {
         res = totalPaid - paid;
 
         lblPago.setText(invoice.getId_plan().getTotal()+"");
-        tfPago.setPromptText(""+res);
+        tfPago.setPromptText("Pago faltante: "+res);
         btnPaid.setOnAction(eventPaid);
         btnClose.setOnAction(eventClose);
     }
 
-    private EventHandler<ActionEvent>  eventPaid = event -> {
+        private EventHandler<ActionEvent>  eventPaid = event -> {
         if(!tfPago.getText().equals(""))
         {
             Double payment, cambio = 0.0 ;
             try {
-                payment = Double.parseDouble(tfPago.getText());
-                if((payment + paid) <= totalPaid && payment > 0){
-                    payment = payment + paid;
-                } else {
+                payment = Double.parseDouble(tfPago.getText()) + paid;
+                System.out.println("Payment: "+payment);
+                System.out.println("Paid: "+paid);
+                if(payment > totalPaid){
                     cambio = payment - totalPaid;
                     payment = totalPaid;
                 }
+                System.out.println("Payment2: "+payment);
+                System.out.println("Cambio: "+cambio);
                 invoiceDAO.updatePayment(payment,invoice.getNo_invoice());
-                if (cambio > 0)
-                    showDialog("Payment Aplied","Payment successfully aplied",true, event);
+                if (cambio == 0)
+                    showDialog("Payment Aplied","Pago aplicado satisfactoriamente",true, event);
                 else
                     showDialog("Payment Aplied","Pago aplicado satisfactoriamente" +
                             "\n Su cambio es: "+cambio,true, event);
@@ -82,6 +88,7 @@ public class ControllerPayment implements Initializable {
     };
 
     private EventHandler<ActionEvent> eventClose = event -> {
+        Main.primaryStage.show();
         ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
     };
 
@@ -99,18 +106,21 @@ public class ControllerPayment implements Initializable {
         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
         close.setGraphic(icon);
         close.setStyle("-fx-background-color: #3a97ff;-fx-font-size:20;-fx-text-fill: White");
-
         dialogContent.setActions(close);
         JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
 
         close.setOnAction(__ -> {
             dialog.close();
             if (opc) {
-                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-                Main.primaryStage.show();
+                showInvoice(event);
             }
         });
         dialog.show();
+    }
+
+    private void showInvoice(ActionEvent event){
+        Main.primaryStage.show();
+        ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
     }
 
 }

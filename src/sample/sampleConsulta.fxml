@@ -16,8 +16,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-
+<StackPane fx:id="myStackPane" prefHeight="300" prefWidth="380" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <AnchorPane>
     <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="20">
         <menus>
             <Menu text="File">
@@ -94,5 +94,5 @@
 
     </GridPane>
 
-
-</AnchorPane>
+    </AnchorPane>
+</StackPane>
