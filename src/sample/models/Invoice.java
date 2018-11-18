@@ -79,4 +79,17 @@ public class Invoice
     public void setPaid_date(Date paid_date) {
         this.paid_date = paid_date;
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "no_invoice=" + no_invoice +
+                ", limit_date=" + limit_date +
+                ", id_month=" + id_month +
+                ", id_plan=" + id_plan +
+                ", id_customer=" + id_customer +
+                ", paid_amount=" + paid_amount +
+                ", paid_date=" + paid_date +
+                '}';
+    }
 }

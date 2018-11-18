@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.Controller;
 import sample.Invoice.InvoiceController;
 import sample.Main;
 import sample.models.Invoice;
@@ -46,6 +47,7 @@ public class ControllerPayment implements Initializable {
     private StackPane myStackPane;
 
     private Double paid, totalPaid, res;
+    private Double payment, cambio = 0.0 ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,17 +64,13 @@ public class ControllerPayment implements Initializable {
         private EventHandler<ActionEvent>  eventPaid = event -> {
         if(!tfPago.getText().equals(""))
         {
-            Double payment, cambio = 0.0 ;
             try {
                 payment = Double.parseDouble(tfPago.getText()) + paid;
-                System.out.println("Payment: "+payment);
-                System.out.println("Paid: "+paid);
+                cambio = 0.0;
                 if(payment > totalPaid){
                     cambio = payment - totalPaid;
                     payment = totalPaid;
                 }
-                System.out.println("Payment2: "+payment);
-                System.out.println("Cambio: "+cambio);
                 invoiceDAO.updatePayment(payment,invoice.getNo_invoice());
                 if (cambio == 0)
                     showDialog("Payment Aplied","Pago aplicado satisfactoriamente",true, event);
@@ -112,15 +110,27 @@ public class ControllerPayment implements Initializable {
         close.setOnAction(__ -> {
             dialog.close();
             if (opc) {
-                showInvoice(event);
+                if (payment == totalPaid) showInvoice(event,true );
+                else showInvoice(event,false );
             }
         });
         dialog.show();
     }
 
-    private void showInvoice(ActionEvent event){
-        Main.primaryStage.show();
-        ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+    private void showInvoice(ActionEvent event, boolean salir){
+        InvoiceController invoiceController;
+        invoiceController = Controller.loaderInvoice.getController();
+
+        if (salir){
+            Main.primaryStage.show();
+            Controller.invoiceStage.close();
+            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+        }
+        else {
+            invoiceController.setF5();
+            Controller.invoiceStage.show();
+            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+        }
     }
 
 }

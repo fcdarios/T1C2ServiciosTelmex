@@ -71,11 +71,11 @@ public class InvoiceDAO
         ResultSet rs = null;
         Invoice e = null;
         try {
-            String query = "SELECT * FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
-                    "where id_customer = " + trans_id +" AND i.paid_amount = p.total";
+            String query = "SELECT i.* FROM Invoice i inner join plans p on i.id_plan = p.id_plan " +
+                    "where id_customer = " + trans_id +" AND i.paid_amount = p.total ORDER BY i.no_invoice DESC LIMIT 1, 1";
             Statement st = conn.createStatement();
             rs = st.executeQuery(query);
-            if(rs.last()) {
+            if(rs.first()) {
                 MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
                 PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
                 CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
@@ -90,6 +90,7 @@ public class InvoiceDAO
                         rs.getDate("paid_date")
                 );
             }
+            System.out.println(e);
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error al recuperar información...");

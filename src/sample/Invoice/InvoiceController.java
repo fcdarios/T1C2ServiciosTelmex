@@ -50,8 +50,14 @@ public class InvoiceController implements Initializable
     private Calls calls = new Calls();
     private CallsDAO callsDAO = new CallsDAO(MySQL.getConnection());
 
-    public void setInvoice(Invoice invoice) { this.invoice = invoice;
-
+    public void setInvoice(Invoice invoice) { this.invoice = invoice; }
+    public void setF5(){
+            invoice = invoiceDAO.fetchLast(invoice.getId_customer().getId_customer());
+            showClient();
+            showPayment();
+            showResume();
+            showCalls(invoice.getId_customer().getId_customer(), invoice.getId_month().getId_month());
+            System.out.println("F5");
     }
 
 
@@ -112,6 +118,32 @@ public class InvoiceController implements Initializable
         }
     };
 
+
+    /*public static Stage paymentStage;
+    public void start(Stage _paymentStage){
+        try {
+            paymentStage = _paymentStage;
+            Stage paymentStage =new Stage();
+            paymentStage.setTitle("Pago");
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/payment/PaymentFormat.fxml"));
+            ControllerPayment controllerPayment = new ControllerPayment();
+            controllerPayment.setInvoice(invoice);
+            loader.setController(controllerPayment);
+            root=loader.load();
+            Scene scene=new Scene(root, 500, 350);
+            scene.getStylesheets().add("/rsc/Theme3.css");
+            paymentStage.setScene(scene);
+            paymentStage.initStyle(StageStyle.UTILITY);
+            paymentStage.setResizable(false);
+            paymentStage.show();
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+    }
+    */
+
+
     private void showPayment(ActionEvent event){
         try {
             Stage paymentStage =new Stage();
@@ -128,9 +160,10 @@ public class InvoiceController implements Initializable
             paymentStage.initStyle(StageStyle.UTILITY);
             paymentStage.setResizable(false);
             paymentStage.show();
-            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+            //((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
         }catch (IOException e ){
             e.printStackTrace();
         }
     }
+
 }

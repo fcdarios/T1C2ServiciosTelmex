@@ -12,14 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.Invoice.InvoiceController;
 import sample.customers.ControllerCustomers;
 import sample.models.Customer;
@@ -43,6 +43,8 @@ public class Controller implements Initializable {
     MenuItem menuItemCustomers;
     @FXML
     StackPane myStackPane;
+    @FXML private MenuBar menuBar;
+
     Invoice invoice = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
     Customer customer = new Customer();
@@ -66,10 +68,13 @@ public class Controller implements Initializable {
         btnConsultar.setOnAction(eventConsultar);
 
         menuItemCustomers.setOnAction(eventMenuItemCustomers);
+
     }
 
     EventHandler<ActionEvent> eventMenuItemCustomers = event -> {
-        showCustomers(event);
+        showCustomers();
+        Stage stage = (Stage) menuBar.getScene().getWindow();
+        stage.close();
     };
 
 
@@ -77,44 +82,50 @@ public class Controller implements Initializable {
         if(validatePhoneNumber()) {
             invoice = invoiceDAO.fetchLast(customer.getId_customer());
             if (invoice != null) {
-                showInvoice(event);
+                Stage invoiceStage = new Stage();
+                showInvoice(invoiceStage, false);
+                ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
                 tfNumber.setText("");
             }
-            else showDialog("Alerta","El pago ya a sido realizado\nDesea ver el recibo" ,event);
+            else showDialog("Alerta","El pago ya fue realizado\nDesea imprimir el recibo" ,true);
         }
     };
 
-    private void showInvoice(ActionEvent event){
+
+    //------------------------
+    public static Stage invoiceStage;
+    public static FXMLLoader loaderInvoice;
+
+    private void showInvoice(Stage _invoiceStage, boolean before){
         try {
-            Stage invoiceStage=new Stage();
+            invoiceStage= _invoiceStage;
             invoiceStage.setTitle("InvoiceController");
             Parent root= null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/Invoice/invoiceFormat.fxml"));
-
+            loaderInvoice = new FXMLLoader(getClass().getResource("/sample/Invoice/invoiceFormat.fxml"));
             InvoiceController invCont = new InvoiceController();
-            invCont.setInvoice(invoice);
-            loader.setController(invCont);
 
-            root=loader.load();
+            invCont.setInvoice(invoice);
+            loaderInvoice.setController(invCont);
+            root=loaderInvoice.load();
             Scene scene=new Scene(root);
             scene.getStylesheets().add("/rsc/DarkTheme2.css");
             invoiceStage.setScene(scene);
             invoiceStage.setMaximized(true);
-            //invoice.setResizable(false);
             invoiceStage.show();
-            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+            System.out.println("Holaaaaaa");
         }catch (IOException e ){
             e.printStackTrace();
         }
     }
+    //------------------------
 
-    private void showCustomers(ActionEvent event){
+
+    private void showCustomers(){
         try {
             Stage customersStage =new Stage();
             customersStage.setTitle("Clientes");
             Parent root = null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/customers/CustomersFormat.fxml"));
-
             ControllerCustomers controllerCustomers = new ControllerCustomers();
             // Mostrar clientes
             loader.setController(controllerCustomers);
@@ -125,7 +136,6 @@ public class Controller implements Initializable {
             customersStage.setScene(scene);
             customersStage.setMaximized(true);
             customersStage.show();
-            ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
         }catch (IOException e ){
             e.printStackTrace();
         }
@@ -138,7 +148,7 @@ public class Controller implements Initializable {
         if(customer != null){
             result = true;
         }
-        else showDialog("ALERTA","Error, numero no encontrado",null);
+        else showDialog("ALERTA","Error, numero no encontrado",false);
         return result;}
 
     private EventHandler<ActionEvent> eventBtn = new EventHandler<ActionEvent>() {
@@ -161,7 +171,7 @@ public class Controller implements Initializable {
     };
 
 
-    private void showDialog(String titulo, String text, ActionEvent event){
+    private void showDialog(String titulo, String text, Boolean Recibo){
         String title = titulo ;
         String content = text;
 
@@ -172,6 +182,7 @@ public class Controller implements Initializable {
 
         JFXButton close = new JFXButton();
         close.setButtonType(JFXButton.ButtonType.RAISED);
+        if(!Recibo) close.setText("OK");
         close.setText("NO");
         close.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;" +
                 "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
@@ -182,13 +193,17 @@ public class Controller implements Initializable {
         open.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;" +
                 "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
 
+        if(Recibo)
         dialogContent.setActions(close, open);
+        else dialogContent.setActions(close);
         JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
         close.setOnAction(eventClose -> {
             dialog.close();
             tfNumber.setText("");
         });
+
         open.setOnAction(eventOpen -> {
+            //------------------------------------------------------------
             dialog.close();
             tfNumber.setText("");
         });
