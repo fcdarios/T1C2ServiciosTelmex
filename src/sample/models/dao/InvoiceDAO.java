@@ -3,6 +3,7 @@ package sample.models.dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.models.Invoice;
+import sample.models.InvoicesView;
 
 import java.sql.*;
 
@@ -49,7 +50,6 @@ public class InvoiceDAO
                 MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
                 PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
                 CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
-
                 e = new Invoice(
                         rs.getInt("no_invoice"),
                         rs.getDate("limit_date"),
@@ -79,7 +79,7 @@ public class InvoiceDAO
                 MonthsDAO monthsDAO = new MonthsDAO(MySQL.getConnection());
                 PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
                 CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
-
+                System.out.println();
                 e = new Invoice(
                         rs.getInt("no_invoice"),
                         rs.getDate("limit_date"),
@@ -98,4 +98,37 @@ public class InvoiceDAO
         return e;
     }
 
+
+    // Consulta a vista de base de datos InvoiceView
+    public ObservableList<InvoicesView> findAllView() {
+        ObservableList<InvoicesView> invoicesViews = FXCollections.observableArrayList();
+        int i = 1;
+        try {
+            String query = "SELECT * FROM invoicesView";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            InvoicesView p = null;
+            while (rs.next()) {
+                p = new InvoicesView(
+                        i,
+                        rs.getString("name_month"),
+                        rs.getString("nameCustomer"),
+                        rs.getDouble("total"),
+                        rs.getDouble("paid_amount"),
+                        rs.getString("limit_date"),
+                        rs.getString("paid_date"),
+                        rs.getString("phone_number"),
+                        rs.getString("name_plan")
+                );
+                invoicesViews.add(p);
+                i++;
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error al recuperar información...");
+        }
+        return invoicesViews;
+    }
 }

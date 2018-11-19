@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="1000" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <Label styleClass="h1" text="FACTURAS" />
+            <HBox alignment="CENTER_RIGHT" spacing="20">
+                <JFXButton fx:id="btnPdf" buttonType="RAISED" focusTraversable="false" styleClass="JFXbutton" text="Generar PDF" />
+                <JFXButton fx:id="btnSalir" buttonType="RAISED" focusTraversable="false" styleClass="JFXbutton" text="Salir" />
+                <padding>
+                   <Insets right="20.0" />
+                </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER">
+                <TableView fx:id="tableViewInvoices" prefWidth="1300" prefHeight="800">
+                    <columns>
+                        <TableColumn fx:id="tvI" prefWidth="50" text="No" />
+                        <TableColumn fx:id="tvName_month" prefWidth="100" text="Mes" />
+                        <TableColumn fx:id="tvNameCustomer" prefWidth="190" text="Nombre Cliente" />
+                        <TableColumn fx:id="tvTotal" prefWidth="150" text="Total a Pagar" />
+                        <TableColumn fx:id="tvPaid_amount" prefWidth="100" text="Pago" />
+                        <TableColumn fx:id="tvLimit_date" prefWidth="150" text="Fecha limite" />
+                        <TableColumn fx:id="tvPaid_date" prefWidth="190" text="Fecha de Pago" />
+                        <TableColumn fx:id="tvPhone_number" prefWidth="150" text="Telefono" />
+                        <TableColumn fx:id="tvName_plan" prefWidth="200" text="Nombre Plan" />
+                    </columns>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+                </TableView>
+            </HBox>
+        </VBox>
+
+    </content>
+</ScrollPane>

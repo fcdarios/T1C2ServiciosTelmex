@@ -19,14 +19,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Controller;
+import sample.Docs.Ticket;
 import sample.Invoice.InvoiceController;
 import sample.Main;
 import sample.models.Invoice;
 import sample.models.dao.InvoiceDAO;
 import sample.models.dao.MySQL;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ControllerPayment implements Initializable {
@@ -36,6 +39,9 @@ public class ControllerPayment implements Initializable {
     {
         this.invoice = invoice;
     }
+
+    private String outputTicket = "PDFs/Tickets/";
+    private Ticket ticket = new Ticket();
 
     @FXML
     private Label lblPago;
@@ -47,7 +53,7 @@ public class ControllerPayment implements Initializable {
     private StackPane myStackPane;
 
     private Double paid, totalPaid, res;
-    private Double payment, cambio = 0.0 ;
+    private Double payment, cambio = 0.0, money ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,31 +72,78 @@ public class ControllerPayment implements Initializable {
         {
             try {
                 payment = Double.parseDouble(tfPago.getText()) + paid;
+                money = payment;
                 cambio = 0.0;
-                if(payment > totalPaid){
+                if(payment >= totalPaid){
                     cambio = payment - totalPaid;
                     payment = totalPaid;
                 }
                 invoiceDAO.updatePayment(payment,invoice.getNo_invoice());
-                if (cambio == 0)
-                    showDialog("Payment Aplied","Pago aplicado satisfactoriamente",true, event);
-                else
-                    showDialog("Payment Aplied","Pago aplicado satisfactoriamente" +
-                            "\n Su cambio es: "+cambio,true, event);
+                if(payment == totalPaid)
+                    if (cambio == 0) showDialogFull("FELICIDADES!","Pago aplicado satisfactoriamente" +
+                            "\n Imprimir ticket: ", event);
+                    else showDialogFull("Payment Aplied","Pago aplicado satisfactoriamente" +
+                                "\nSu cambio es: "+cambio+"\nImprimir ticket: ", event);
+                else showDialogNoFull("Payment Aplied","Pago aplicado satisfactoriamente", event);
+
             }catch (Exception e){
-                showDialog("Error paid","Introducir un pago valido",false, event);
+                showDialogNoFull("Error paid","Introducir un pago valido", event);
             }
         }
         else
-            showDialog("Alerta","Introduzca un monto",false, event);
+            showDialogNoFull("Alerta","Introduzca un monto", event);
     };
 
     private EventHandler<ActionEvent> eventClose = event -> {
-        Main.primaryStage.show();
+        InvoiceController invoiceController;
+        invoiceController = Controller.loaderInvoice.getController();
+        invoiceController.setF5();
+        Controller.invoiceStage.show();
         ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
     };
 
-    private void showDialog(String titulo, String text, boolean opc, ActionEvent event){
+    private void showDialogFull(String titulo, String text, ActionEvent event){
+        boolean paidOk = false;
+        String title = titulo ;
+        String content = text;
+
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
+        dialogContent.setHeading(new Text(title));
+        dialogContent.setBody(new Text(content));
+        dialogContent.setAlignment(Pos.CENTER);
+        JFXButton btnClose = new JFXButton();
+        JFXButton btnOk = new JFXButton();
+        btnClose.setButtonType(JFXButton.ButtonType.RAISED);
+        btnOk.setButtonType(JFXButton.ButtonType.RAISED);
+        btnClose.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;-fx-text-fill: White;-fx-pref-width: 50");
+        btnOk.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;-fx-text-fill: White;-fx-pref-width: 50");
+        btnClose.setText("NO");
+        btnOk.setText("SI");
+        dialogContent.setActions(btnClose, btnOk);
+        JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+
+        btnClose.setOnAction(eventClose -> {
+            dialog.close();
+            showInvoice(event,true );
+        });
+        btnOk.setOnAction(eventOK ->{
+            try {
+                outputTicket = outputTicket +"ticket_"+invoice.getNo_invoice()+"_"+invoice.getId_customer().getFirst_name()+".pdf";
+                System.out.printf(outputTicket);
+                File file = new File(outputTicket);
+                file.getParentFile().mkdirs();
+                ticket.setInvoice(invoice, money, cambio);
+                ticket.createTicketPdf(outputTicket);
+            }catch (IOException e){
+                System.out.println(e);
+            }
+            dialog.close();
+            showInvoice(event,true );
+        });
+        dialog.show();
+    }
+
+    private void showDialogNoFull(String titulo, String text, ActionEvent event){
         String title = titulo ;
         String content = text;
 
@@ -99,20 +152,16 @@ public class ControllerPayment implements Initializable {
         dialogContent.setBody(new Text(content));
         dialogContent.setAlignment(Pos.CENTER);
 
-        JFXButton close = new JFXButton();
-        close.setButtonType(JFXButton.ButtonType.RAISED);
-        FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
-        close.setGraphic(icon);
-        close.setStyle("-fx-background-color: #3a97ff;-fx-font-size:20;-fx-text-fill: White");
-        dialogContent.setActions(close);
+        JFXButton btnClose = new JFXButton();
+        btnClose.setText("OK");
+        btnClose.setButtonType(JFXButton.ButtonType.RAISED);
+        btnClose.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;-fx-text-fill: White;-fx-pref-width: 50");
+        dialogContent.setActions(btnClose);
         JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
 
-        close.setOnAction(__ -> {
+        btnClose.setOnAction(__ -> {
             dialog.close();
-            if (opc) {
-                if (payment == totalPaid) showInvoice(event,true );
-                else showInvoice(event,false );
-            }
+            showInvoice(event,false );
         });
         dialog.show();
     }

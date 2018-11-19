@@ -4,23 +4,20 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import sample.Invoice.InvoiceController;
+import sample.InvoicesFormat.ControllerInvoices;
 import sample.customers.ControllerCustomers;
 import sample.models.Customer;
 import sample.models.Invoice;
@@ -32,6 +29,7 @@ import sample.models.dao.PlansDAO;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -39,11 +37,10 @@ public class Controller implements Initializable {
     JFXButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnBorrar, btnConsultar, btnCancelar, btnAyuda;
     @FXML
     JFXTextField tfNumber;
-    @FXML
-    MenuItem menuItemCustomers;
-    @FXML
-    StackPane myStackPane;
     @FXML private MenuBar menuBar;
+    @FXML private MenuItem menuItemCustomers, menuItemInvoices;
+    @FXML StackPane myStackPane;
+
 
     Invoice invoice = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
@@ -66,13 +63,18 @@ public class Controller implements Initializable {
         btn10.setOnAction(eventBtn);
         btnBorrar.setOnAction(eventBtn);
         btnConsultar.setOnAction(eventConsultar);
-
         menuItemCustomers.setOnAction(eventMenuItemCustomers);
+        menuItemInvoices.setOnAction(eventMenuItemInvoices);
 
     }
 
     EventHandler<ActionEvent> eventMenuItemCustomers = event -> {
         showCustomers();
+        Stage stage = (Stage) menuBar.getScene().getWindow();
+        stage.close();
+    };
+    EventHandler<ActionEvent> eventMenuItemInvoices = event -> {
+        showInvoicesFormat();
         Stage stage = (Stage) menuBar.getScene().getWindow();
         stage.close();
     };
@@ -108,7 +110,7 @@ public class Controller implements Initializable {
             loaderInvoice.setController(invCont);
             root=loaderInvoice.load();
             Scene scene=new Scene(root);
-            scene.getStylesheets().add("/rsc/DarkTheme2.css");
+            scene.getStylesheets().add("/rsc/Theme1.css");
             invoiceStage.setScene(scene);
             invoiceStage.setMaximized(true);
             invoiceStage.show();
@@ -118,8 +120,6 @@ public class Controller implements Initializable {
         }
     }
     //------------------------
-
-
     private void showCustomers(){
         try {
             Stage customersStage =new Stage();
@@ -132,10 +132,31 @@ public class Controller implements Initializable {
 
             root=loader.load();
             Scene scene=new Scene(root);
-            scene.getStylesheets().add("/rsc/DarkTheme2.css");
+            scene.getStylesheets().add("/rsc/Theme1.css");
             customersStage.setScene(scene);
             customersStage.setMaximized(true);
             customersStage.show();
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+    }
+    //------------------------
+    private void showInvoicesFormat(){
+        try {
+            Stage invoicesStage =new Stage();
+            invoicesStage.setTitle("Facturas");
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/InvoicesFormat/FormatInvoices.fxml"));
+            ControllerInvoices controllerInvoices = new ControllerInvoices();
+            // Mostrar clientes
+            loader.setController(controllerInvoices);
+
+            root=loader.load();
+            Scene scene=new Scene(root);
+            scene.getStylesheets().add("/rsc/Theme1.css");
+            invoicesStage.setScene(scene);
+            invoicesStage.setMaximized(true);
+            invoicesStage.show();
         }catch (IOException e ){
             e.printStackTrace();
         }

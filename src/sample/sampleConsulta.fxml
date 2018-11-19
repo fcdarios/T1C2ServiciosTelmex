@@ -28,7 +28,7 @@
             <Menu text="Reports">
                 <items>
                     <MenuItem fx:id="menuItemCustomers" text="Mostrar Clientes" />
-                    <MenuItem text="Facturas Pagadas" />
+                    <MenuItem fx:id="menuItemInvoices" text="Facturas" />
                     <MenuItem text="Report 3" />
                 </items>
             </Menu>
