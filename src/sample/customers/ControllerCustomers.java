@@ -10,13 +10,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import sample.Docs.CustomersPDF;
 import sample.Main;
 import sample.models.Customer;
 import sample.models.CustomerView;
 import sample.models.dao.CustomerDAO;
 import sample.models.dao.MySQL;
+
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ControllerCustomers implements Initializable {
@@ -25,6 +31,8 @@ public class ControllerCustomers implements Initializable {
 
     @FXML TableColumn tvIdCustomer, tvFirstName, tvLastName, tvAddress, tvTelephone, tvCp, tvCity;
     @FXML TableView<CustomerView> tableViewCustomers;
+
+    CustomersPDF customersPDF = new CustomersPDF(MySQL.getConnection());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,11 +48,24 @@ public class ControllerCustomers implements Initializable {
         tableViewCustomers.setItems(customerDAO.findAllV());
 
         btnSalir.setOnAction(eventClose);
+        btnPdf.setOnAction(eventPDF);
     }
 
     private EventHandler<ActionEvent> eventClose = event -> {
         Main.primaryStage.show();
         ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+    };
+
+    private EventHandler<ActionEvent> eventPDF = event -> {
+         String DEST4 = "PDFs/Reports/Customers_"+ LocalDate.now()+".pdf";
+        try {
+            File file = new File(DEST4);
+            file.getParentFile().mkdirs();
+            customersPDF.createPdf(DEST4);
+        }catch (IOException e){
+            System.out.println(e);
+        }
+
     };
 
 }

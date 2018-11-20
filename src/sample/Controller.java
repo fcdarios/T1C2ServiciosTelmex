@@ -38,16 +38,13 @@ public class Controller implements Initializable {
     @FXML
     JFXTextField tfNumber;
     @FXML private MenuBar menuBar;
-    @FXML private MenuItem menuItemCustomers, menuItemInvoices;
+    @FXML private MenuItem menuItemCustomers, menuItemInvoices, menuItemExit, menuItemAbout;
     @FXML StackPane myStackPane;
-
 
     Invoice invoice = new Invoice();
     InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
     Customer customer = new Customer();
     CustomerDAO customerDAO = new CustomerDAO(MySQL.getConnection());
-    Plans plans = new Plans();
-    PlansDAO plansDAO = new PlansDAO(MySQL.getConnection());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,9 +60,12 @@ public class Controller implements Initializable {
         btn10.setOnAction(eventBtn);
         btnBorrar.setOnAction(eventBtn);
         btnConsultar.setOnAction(eventConsultar);
+        btnCancelar.setOnAction(eventCancelar);
+        btnAyuda.setOnAction(eventAyuda);
         menuItemCustomers.setOnAction(eventMenuItemCustomers);
         menuItemInvoices.setOnAction(eventMenuItemInvoices);
-
+        menuItemAbout.setOnAction(eventMenuItemAbout);
+        menuItemExit.setOnAction(eventMenuItemExit);
     }
 
     EventHandler<ActionEvent> eventMenuItemCustomers = event -> {
@@ -78,7 +78,13 @@ public class Controller implements Initializable {
         Stage stage = (Stage) menuBar.getScene().getWindow();
         stage.close();
     };
-
+    EventHandler<ActionEvent> eventMenuItemExit = event -> {
+        Stage stage = (Stage) menuBar.getScene().getWindow();
+        stage.close();
+    };
+    EventHandler<ActionEvent> eventMenuItemAbout = event -> {
+        showDialog("Acerca de:","Autor: Darío Olivares" );
+    };
 
     EventHandler<ActionEvent> eventConsultar = event -> {
         if(validatePhoneNumber()) {
@@ -89,9 +95,18 @@ public class Controller implements Initializable {
                 ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
                 tfNumber.setText("");
             }
-            else showDialog("Alerta","El pago ya fue realizado\nDesea imprimir el recibo" ,true);
+            else showDialog("Alerta","El pago ya fue realizado" );
         }
     };
+
+    EventHandler<ActionEvent> eventCancelar = event -> {
+        ((Stage)(((Button) event.getSource()).getScene().getWindow())).close();
+    };
+    EventHandler<ActionEvent> eventAyuda = event -> {
+        showDialog("Aviso","Favor de consultar el manual"  );
+    };
+
+
 
 
     //------------------------
@@ -169,7 +184,7 @@ public class Controller implements Initializable {
         if(customer != null){
             result = true;
         }
-        else showDialog("ALERTA","Error, numero no encontrado",false);
+        else showDialog("ALERTA","Error, numero no encontrado");
         return result;}
 
     private EventHandler<ActionEvent> eventBtn = new EventHandler<ActionEvent>() {
@@ -192,7 +207,7 @@ public class Controller implements Initializable {
     };
 
 
-    private void showDialog(String titulo, String text, Boolean Recibo){
+    private void showDialog(String titulo, String text){
         String title = titulo ;
         String content = text;
 
@@ -203,28 +218,13 @@ public class Controller implements Initializable {
 
         JFXButton close = new JFXButton();
         close.setButtonType(JFXButton.ButtonType.RAISED);
-        if(!Recibo) close.setText("OK");
-        close.setText("NO");
+        close.setText("OK");
         close.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;" +
                 "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
 
-        JFXButton open = new JFXButton();
-        open.setButtonType(JFXButton.ButtonType.RAISED);
-        open.setText("SI");
-        open.setStyle("-fx-background-color: #3a97ff;-fx-font-size:15;" +
-                "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
-
-        if(Recibo)
-        dialogContent.setActions(close, open);
-        else dialogContent.setActions(close);
+        dialogContent.setActions(close);
         JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
         close.setOnAction(eventClose -> {
-            dialog.close();
-            tfNumber.setText("");
-        });
-
-        open.setOnAction(eventOpen -> {
-            //------------------------------------------------------------
             dialog.close();
             tfNumber.setText("");
         });

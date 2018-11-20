@@ -10,11 +10,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -38,12 +40,15 @@ import java.util.ResourceBundle;
 
 public class InvoiceController implements Initializable
 {
+    @FXML private StackPane myStackPane;
     @FXML private Label lblName,lblCity,lblCP, lblAddress;
     @FXML private Label lblPayment,lblLimitDate,lblMonth, lblPhone, lblNoInvoice;
     @FXML private Label lblPaymentA, lblPaymentB, lblPaidAmount, lblPaidDate;
-    @FXML private JFXButton btnPay;
+    @FXML private JFXButton btnPay, btnSave, btnList;
     @FXML private TableView<Calls> tvCalls;
     @FXML private TableColumn tcNoCalls, tcDate, tcPhoneNumber, tcMinuntes;
+    @FXML private MenuBar menu;
+    @FXML private MenuItem menuItemReport1, menuItemReport2,menuItemReport3 ,menuItemExit, menuItemAbout;
 
     private Invoice invoice = new Invoice();
     private InvoiceDAO invoiceDAO = new InvoiceDAO(MySQL.getConnection());
@@ -68,13 +73,30 @@ public class InvoiceController implements Initializable
         showPayment();
         showResume();
         showCalls(invoice.getId_customer().getId_customer(), invoice.getId_month().getId_month());
-        if(invoice.getPaid_amount() == invoice.getId_plan().getTotal())
-            btnPay.setDisable(true);
-        else
-            btnPay.setDisable(false);
-
         btnPay.setOnAction(eventBtnPay);
+        btnSave.setOnAction(eventBtn);
+        btnList.setOnAction(eventBtn);
+        menuItemAbout.setOnAction(eventMenuItemAbout);
+        menuItemExit.setOnAction(eventMenuItemExit);
+        menuItemReport1.setOnAction(eventMenuItemReports);
+        menuItemReport3.setOnAction(eventMenuItemReports);
+        menuItemReport2.setOnAction(eventMenuItemReports);
+
     }
+
+    EventHandler<ActionEvent> eventMenuItemExit = event -> {
+        Stage stage = (Stage) menu.getScene().getWindow();
+        stage.close();
+    };
+    EventHandler<ActionEvent> eventMenuItemAbout = event -> {
+        showDialog("Acerca de:","Autor: Darío Olivares" );
+    };
+    EventHandler<ActionEvent> eventMenuItemReports = event -> {
+        showDialog(":(","En mantenimiento" );
+    };
+    EventHandler<ActionEvent> eventBtn = event ->{
+        showDialog(":(","En mantenimiento" );
+    };
 
     private void showResume() {
         Invoice invoiceB = new Invoice();
@@ -139,4 +161,26 @@ public class InvoiceController implements Initializable
         }
     }
 
+    private void showDialog(String titulo, String text){
+        String title = titulo ;
+        String content = text;
+
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
+        dialogContent.setHeading(new Text(title));
+        dialogContent.setBody(new Text(content));
+        dialogContent.setAlignment(Pos.CENTER);
+
+        JFXButton close = new JFXButton();
+        close.setButtonType(JFXButton.ButtonType.RAISED);
+        close.setText("OK");
+        close.setStyle("-fx-background-color: #3a97ff;-fx-font-size:18;" +
+                "-fx-text-fill: White; -fx-font-family: 'Roboto Bold'; -fx-pref-width: 50");
+
+        dialogContent.setActions(close);
+        JFXDialog dialog = new JFXDialog(myStackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+        close.setOnAction(eventClose -> {
+            dialog.close();
+        });
+        dialog.show();
+    }
 }

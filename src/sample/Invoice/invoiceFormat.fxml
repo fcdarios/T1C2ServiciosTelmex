@@ -22,54 +22,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.bootstrapfx.scene.layout.Panel?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="myStackPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
 
-    <content>
         <VBox alignment="TOP_CENTER">
-        <MenuBar AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <MenuBar fx:id="menu" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
             <menus>
-                <Menu text="File">
+                <Menu  text="File">
                     <items>
-                        <MenuItem text="Exit" />
-                    </items>
-                </Menu>
-                <Menu text="Catologs">
-                    <items>
-                        <MenuItem text="Opcion 1" />
-                        <MenuItem text="Opcion 2" />
-                        <MenuItem text="Opcion 3" />
+                        <MenuItem fx:id="menuItemExit" text="Exit" />
                     </items>
                 </Menu>
                 <Menu text="Reports">
                     <items>
-                        <MenuItem text="Report 1" />
-                        <MenuItem text="Report 2" />
-                        <MenuItem text="Report 3" />
+                        <MenuItem fx:id="menuItemReport1" text="Report 1" />
+                        <MenuItem fx:id="menuItemReport2" text="Report 2" />
+                        <MenuItem fx:id="menuItemReport3" text="Report 3" />
                     </items>
                 </Menu>
                 <Menu text="Help">
                     <items>
-                        <MenuItem text="About" />
-                        <MenuItem text="Opcion" />
+                        <MenuItem fx:id="menuItemAbout" text="About" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
             <ToolBar>
                 <items>
-                    <JFXButton buttonType="RAISED">        <!--- Boton Guardar -->
+
+                    <JFXButton fx:id="btnSave" buttonType="RAISED" styleClass="styleButtonToolbar">        <!--- Boton Guardar -->
                         <graphic>
-                            <FontAwesomeIconView fill="white" glyphName="SAVE" glyphSize="30" />
+                            <FontAwesomeIconView fill="black" glyphName="SAVE" glyphSize="30" />
                         </graphic>
                     </JFXButton>
-                    <JFXButton buttonType="RAISED">         <!--- Boton Otro -->
+                    <JFXButton fx:id="btnList" buttonType="RAISED" styleClass="styleButtonToolbar">         <!--- Boton Otro -->
                         <graphic>
-                            <FontAwesomeIconView fill="white" glyphName="LIST_ALT" glyphSize="30" />
-                        </graphic>
-                    </JFXButton>
-                    <JFXButton buttonType="RAISED">         <!--- Boton Otro2   -->
-                        <graphic>
-                            <FontAwesomeIconView fill="white" glyphName="LINE_CHART" glyphSize="30" />
+                            <FontAwesomeIconView fill="black" glyphName="LIST_ALT" glyphSize="30" />
                         </graphic>
                     </JFXButton>
                 </items>
@@ -77,7 +64,6 @@
         <AnchorPane>
 
         <GridPane alignment="CENTER" hgap="50" vgap="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
-
             <!-- Imagen -->
                <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <Group StackPane.alignment="TOP_LEFT">
@@ -159,5 +145,5 @@
 
         </AnchorPane>
         </VBox>
-     </content>
-   </ScrollPane>
+
+   </StackPane>

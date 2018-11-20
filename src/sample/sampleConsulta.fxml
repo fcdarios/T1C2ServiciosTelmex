@@ -22,20 +22,18 @@
         <menus>
             <Menu text="File">
                 <items>
-                    <MenuItem text="Exit" />
+                    <MenuItem fx:id="menuItemExit" text="Exit" />
                 </items>
             </Menu>
             <Menu text="Reports">
                 <items>
                     <MenuItem fx:id="menuItemCustomers" text="Mostrar Clientes" />
                     <MenuItem fx:id="menuItemInvoices" text="Facturas" />
-                    <MenuItem text="Report 3" />
                 </items>
             </Menu>
             <Menu text="Help">
                 <items>
-                    <MenuItem text="About" />
-                    <MenuItem text="Opcion" />
+                    <MenuItem fx:id="menuItemAbout" text="About" />
                 </items>
             </Menu>
         </menus>

@@ -19,10 +19,6 @@
     -fx-font-family: 'Impact'
 }
 
-.JFXbutton{
-    -fx-pref-width: 150;
-    -fx-pref-height: 40;
-}
 
 
 .tab {
@@ -51,6 +47,12 @@
     -fx-base: rgb(67, 141, 242);
     -fx-background-radius: 20px;
     -fx-text-fill: #0e0e0e;
+}
+
+.button.styleButtonToolbar{
+    -fx-pref-width: 100;
+    -fx-pref-height: 40;
+    -fx-background-color: #039adc;
 }
 /* TableViews
  formato para las celdas del tableview */
